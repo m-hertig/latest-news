@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jFeed - jQuery feed parser plugin - example</title>
+<style type="text/css">
+    h3 { margin-bottom: 5px; }
+    div.updated { color: #999; margin-bottom: 5px; font-size: 0.8em; }
+</style>
+<script type="text/javascript" src="jFeed-master/jquery/jquery.js"></script>
+<script type="text/javascript" src="jFeed-master/build/dist/jquery.jfeed.pack.js"></script>
+
+<script type="text/javascript">
+
+
+jQuery(function() {
+
+    jQuery.getFeed({
+        url: 'proxy.php',
+        success: function(feed) {
+
+            var html = '';
+            for(var i = 0; i < feed.items.length; i++) {
+                var item = feed.items[i];
+
+                // Strip everything after last "-" (name of newspaper)
+                var regexp = /(\s-\s)+?[^-]+?$/;
+                var titleStripped = item.title.replace(regexp, '');
+
+
+                html += titleStripped+", ";
+            }
+
+            jQuery('#result').append(html);
+        }
+    });
+});
+
+</script>
+
+</head>
+<body>
+<h1>jFeed - jQuery feed parser plugin - example</h1>
+<div id="result" />
+</body>
+</html>
